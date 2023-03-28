@@ -1,6 +1,6 @@
 # Food Ordering App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a test of various react basic concepts, including hooks & context.
 
 ## Available Scripts
 
