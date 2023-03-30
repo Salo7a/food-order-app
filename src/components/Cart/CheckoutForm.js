@@ -12,6 +12,7 @@ export const CheckoutForm = ({onClose}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!isFormValid()) return;
         let formData = getValues();
         let response = sendRequest({
             method: "post",
