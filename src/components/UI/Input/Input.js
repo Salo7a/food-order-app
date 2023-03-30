@@ -1,13 +1,29 @@
-import classes from "./Input.module.css";
-import React from "react";
+import classes from './Input.module.css';
+import {useState} from "react";
 
-export const Input = React.forwardRef(({className, label, input}, ref) => {
+export const Input = ({
+                          id,
+                          label,
+                          name,
+                          type,
+                          value,
+                          placeholder,
+                          disabled,
+                          onChange,
+                          isValid,
+                          errorMsg,
+                      }) => {
+    const [touched, setTouched] = useState(false);
+    const onBlur = (e) => {
+        setTouched(true);
+    }
     return (
-        <>
-            <div className={`${classes.input} ${className}`}>
-                <label htmlFor={input.id}>{label}</label>
-                <input ref={ref} id={input.id} {...input}/>
-            </div>
-        </>
+
+        <div className={classes.inputContainer}>
+            <label htmlFor={id}>{label}</label>
+            <input type={type} name={name} onChange={onChange} onBlur={onBlur} value={value} placeholder={placeholder}
+                   disabled={disabled}/>
+            {touched && !isValid && errorMsg && <p className={classes.error}>{errorMsg}</p>}
+        </div>
     )
-});
+}

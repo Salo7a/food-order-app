@@ -1,5 +1,5 @@
 import classes from './MealItemForm.module.css';
-import {Input} from "../../UI/Input/Input";
+import {RefInput} from "../../UI/RefInput/RefInput";
 import {useRef, useState} from "react";
 
 export const MealItemForm = ({id, onAddItem}) => {
@@ -20,7 +20,7 @@ export const MealItemForm = ({id, onAddItem}) => {
 
     return (
         <form className={classes.form} onSubmit={mealAddHandler}>
-            <Input ref={addedAmountRef} label={'Amount'} input={
+            <RefInput ref={addedAmountRef} label={'Amount'} input={
                 {
                     id: `amount-${id}`,
                     type: 'number',
