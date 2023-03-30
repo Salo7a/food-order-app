@@ -5,7 +5,7 @@ import classes from "./CheckoutForm.module.css"
 import {useContext} from "react";
 import {CartContext} from "../../store/cart-context";
 
-export const CheckoutForm = ({onClose}) => {
+export const CheckoutForm = ({onClose, onSubmitComplete}) => {
     const {renderFormInputs, isFormValid, getValues} = useForm(checkoutFormConfig);
     const {isLoading, error, sendRequest} = useRequest();
     const cartCtx = useContext(CartContext);
@@ -20,7 +20,7 @@ export const CheckoutForm = ({onClose}) => {
             body: {...formData, totalAmount: cartCtx.totalAmount, items: cartCtx.items}
         });
         if (!error) {
-            onClose()
+            onSubmitComplete()
         }
 
     }

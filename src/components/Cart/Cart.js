@@ -8,6 +8,7 @@ import {CheckoutForm} from "./CheckoutForm";
 export const Cart = ({onCartClose}) => {
     const cartCtx = useContext(CartContext);
     const [checkoutStarted, setCheckoutStarted] = useState(false);
+    const [checkoutComplete, setCheckoutComplete] = useState(false);
 
     const handleCartItemRemove = (id) => {
         cartCtx.removeItem(id);
@@ -27,10 +28,22 @@ export const Cart = ({onCartClose}) => {
     const handleOrder = () => {
         setCheckoutStarted(true);
     }
+    const handleCheckoutComplete = () => {
+        cartCtx.emptyCart();
+        setCheckoutComplete(true);
+    }
+
+    if (checkoutComplete) {
+        return (
+            <Modal onClose={onCartClose}>
+                <p>Order Submitted Successfully</p>
+            </Modal>
+        )
+    }
     if (checkoutStarted) {
         return (
             <Modal onClose={onCartClose}>
-                <CheckoutForm onClose={onCartClose}/>
+                <CheckoutForm onClose={onCartClose} onSubmitComplete={handleCheckoutComplete()}/>
                 <div className={classes.total}>
                     <span>Total Amount</span>
                     <span>{cartCtx.totalAmount.toFixed(2).toString()}E£</span>
@@ -38,6 +51,7 @@ export const Cart = ({onCartClose}) => {
             </Modal>
         )
     }
+
     return (
         <Modal onClose={onCartClose}>
             {cartItems}

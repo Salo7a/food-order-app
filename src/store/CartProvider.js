@@ -7,7 +7,6 @@ const defaultCartState = {
 }
 
 const cartReducer = (state, action) => {
-    console.log('calling reducer')
     if (action.type === 'ADD') {
         // Update Total Amount
         const newTotal = state.totalAmount + action.item.price * action.item.amount;
@@ -61,6 +60,11 @@ const cartReducer = (state, action) => {
                 totalAmount: newTotal
             }
         }
+    } else if (action.type === 'EMPTY') {
+        return {
+            items: [],
+            totalAmount: 0
+        }
     }
 }
 
@@ -73,12 +77,15 @@ export const CartProvider = (props) => {
     const handleRemoveFromCart = (id) => {
         dispatchCartAction({type: 'REMOVE', id});
     }
-
+    const handleEmptyCart = (id) => {
+        dispatchCartAction({type: 'EMPTY'});
+    }
     const cartContext = {
         items: cartState.items,
         totalAmount: cartState.totalAmount,
         addItem: handleAddToCart,
-        removeItem: handleRemoveFromCart
+        removeItem: handleRemoveFromCart,
+        emptyCart: handleEmptyCart
     };
 
     return <CartContext.Provider value={cartContext}>{props.children}</CartContext.Provider>
